@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Poem for You</title>
+<style>
+  html, body {
+    margin:0; padding:0;
+    height:100%;
+    overflow:hidden;
+    font-family:'Georgia', serif;
+    background: radial-gradient(ellipse at bottom, #0b1a2a 0%, #000 100%);
+    color:white;
+  }
+
+  /* Aurora */
+  .aurora {
+    position:absolute; top:0; left:0;
+    width:100%; height:100%;
+    background: linear-gradient(180deg, rgba(0,255,200,0.25), transparent 70%),
+                linear-gradient(180deg, rgba(0,100,255,0.25), transparent 80%);
+    mix-blend-mode: screen;
+    animation: aurora 12s ease-in-out infinite alternate;
+    z-index:1;
+  }
+  @keyframes aurora { 0% {transform:translateY(0);opacity:0.3;} 100% {transform:translateY(-40px);opacity:0.6;} }
+
+  /* Bulan */
+  .moon {
+    position:absolute; top:60px; right:100px;
+    width:90px; height:90px;
+    border-radius:50%;
+    background: radial-gradient(circle,#fff 45%,#ccc 70%,transparent 100%);
+    box-shadow:0 0 25px rgba(255,255,200,0.35);
+    z-index:2;
+  }
+
+  /* Kabut */
+  .fog {
+    position:absolute; top:0; left:0;
+    width:200%; height:200%;
+    background: url("https://i.ibb.co/4V2rM7b/fog-texture.png");
+    background-size: cover;
+    opacity: 0.1;
+    animation: fogMove 200s linear infinite;
+    z-index:3;
+  }
+  @keyframes fogMove { from {transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* Intro page */
+  #intro {
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    background: rgba(0,0,0,0.75); z-index:10;
+  }
+  #intro h1 { font-size:2.7rem; margin-bottom:2rem; text-shadow:0 0 18px rgba(255,255,255,0.6); text-align:center; }
+  #startBtn {
+    padding:1rem 3rem; font-size:1.3rem; border:none; border-radius:50px;
+    background: linear-gradient(90deg,#6a11cb,#2575fc);
+    color:white; cursor:pointer;
+    box-shadow:0 0 15px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+  }
+  #startBtn:hover { transform:scale(1.07); box-shadow:0 0 25px rgba(255,255,255,0.5); }
+
+  /* Container Puisi */
+  .container {
+    position:relative; z-index:5;
+    padding:3rem 1.5rem;
+    max-width:850px;
+    margin:0 auto;
+    display:none;
+    animation: fadeIn 2s ease forwards;
+    text-align:center;
+  }
+  .note { font-size:1.8rem; font-style:italic; margin-bottom:2rem; color:#e8dfff; text-shadow:0 0 8px rgba(200,200,255,0.4);}
+  
+  .poem {
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(5px);
+    padding:2rem;
+    border-radius:18px;
+    box-shadow:0 0 18px rgba(255,255,255,0.08);
+    line-height:1.8;
+    font-size:1.2rem;
+    text-align:left;
+
+    /* Scroll hanya di dalam box */
+    max-height:70vh;
+    overflow-y:auto;
+  }
+  .poem p { margin:0 0 1.4rem; }
+
+  /* Stars */
+  .star {
+    position:absolute;
+    width:2px; height:2px;
+    background:white;
+    animation: twinkle 3s infinite;
+  }
+  @keyframes twinkle { 0%,100%{opacity:0.25;}50%{opacity:1;} }
+
+  /* Shooting stars */
+  .shooting-star {
+    position:absolute;
+    width:2px; height:80px;
+    background: linear-gradient(white, transparent);
+    opacity:0.8;
+    transform: rotate(120deg);
+    animation: shoot 3s linear forwards;
+  }
+  @keyframes shoot { 0%{transform:translate(-50px,-100px) rotate(120deg);opacity:0;} 30%{opacity:1;} 100%{transform:translate(120vw,100vh) rotate(120deg);opacity:0;} }
+
+  /* Fireflies */
+  .firefly {
+    position:absolute;
+    width:5px;height:5px;
+    background: radial-gradient(circle, rgba(255,255,150,0.9) 40%, transparent 70%);
+    border-radius:50%;
+    animation: fly 12s linear infinite;
+    opacity:0.7;
+  }
+  @keyframes fly {
+    0%{transform:translate(0,0);opacity:0.3;}
+    25%{transform:translate(40px,-30px);opacity:1;}
+    50%{transform:translate(-20px,25px);opacity:0.6;}
+    75%{transform:translate(30px,-40px);opacity:0.9;}
+    100%{transform:translate(0,0);opacity:0.3;}
+  }
+
+  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+</style>
+</head>
+<body>
+
+<div class="aurora"></div>
+<div class="moon"></div>
+<div class="fog"></div>
+
+<div id="intro">
+  <h1>A Suprise For You</h1>
+  <button id="startBtn">See The Suprise</button>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="night-changes.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+  <div class="note">A poem for you</div>
+  <div class="poem">
+    <p>A haze of light, trembling with doubt,<br>
+    The world blurs, its lines without route.<br>
+    I grope through shadows, guessing what’s near,<br>
+    A fleeting figure begins to appear.</p>
+    <p>And in that moment, strange yet clear,<br>
+    As though a curtain slowly drew near—<br>
+    You emerged, shattering hesitation,<br>
+    Stillness replaced all imagination.</p>
+    <p>Your face—engraved like the moon’s embrace,<br>
+    A smile that pierces the heart’s quiet space.<br>
+    Your eyes, like dawn’s first tender flame,<br>
+    Chasing the night, calling my name.<br>
+    Before you, storms learn to cease,<br>
+    A fragile hope becomes my peace.</p>
+    <p>The world once dim, blurred and cold,<br>
+    Fades before the beauty you unfold.<br>
+    No longer illusion, no fleeting disguise,<br>
+    But an anchor cast in empty skies.</p>
+    <p>Amid the clamor of life unsure,<br>
+    You stand—a harbor, steadfast, pure.</p>
+    <p>And when the night changes, the stars softly bend,<br>
+    Yet love, unyielding, knows no end.<br>
+    Through seasons that fade, through years anew,<br>
+    My soul still journeys, ever to you.</p>
+    <p>Perhaps this is love, quiet and true,<br>
+    For even my weary eyes<br>
+    See poetry in you.</p>
+  </div>
+</div>
+
+<script>
+const intro = document.getElementById("intro");
+const container = document.querySelector(".container");
+const bgMusic = document.getElementById("bgMusic");
+
+// Stars - jumlah menyesuaikan viewport
+const numStars = Math.floor(window.innerWidth * window.innerHeight / 1500);
+for(let i=0;i<numStars;i++){
+  let star = document.createElement("div");
+  star.className="star";
+  star.style.top=Math.random()*window.innerHeight+"px";
+  star.style.left=Math.random()*window.innerWidth+"px";
+  star.style.animationDuration=(Math.random()*3+2)+"s";
+  document.body.appendChild(star);
+}
+
+// Shooting stars
+setInterval(()=>{
+  let meteor=document.createElement("div");
+  meteor.className="shooting-star";
+  meteor.style.top=Math.random()*(window.innerHeight/2)+"px";
+  meteor.style.left="-50px";
+  document.body.appendChild(meteor);
+  setTimeout(()=>meteor.remove(),3000);
+},7000);
+
+// Fireflies
+for(let i=0;i<15;i++){
+  let firefly=document.createElement("div");
+  firefly.className="firefly";
+  firefly.style.top=Math.random()*window.innerHeight+"px";
+  firefly.style.left=Math.random()*window.innerWidth+"px";
+  firefly.style.animationDuration=(10+Math.random()*10)+"s";
+  document.body.appendChild(firefly);
+}
+
+// Tombol intro → puisi + autoplay
+document.getElementById("startBtn").addEventListener("click",()=>{
+  intro.style.display="none";
+  container.style.display="block";
+  bgMusic.play();
+});
+</script>
+</body>
+</html>
